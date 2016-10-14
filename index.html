@@ -21,17 +21,29 @@
         <source src="media/tron.mp4" type="video/mp4">
     </video>
     
-    <div class="logo">
-        Ride
+    <div class="login-container">
+        <div class="login-container-left">
+            <div class="logo">
+                Ride
+            </div>
+        
+            <form action="login.php" method="post" >
+                <input type="text" id="txtusername" placeholder=".edu email"/><br />
+                <input type="text" id="txtpassword" placeholder="password" /><br />
+                <input type="submit" id="loginbtn" value="login"/>
+            </form>
+        </div>
+        
+        <div id="partition"></div>
+        
+        <div class="login-container-right">
+            <h1>Cheaper than Uber!</h1>
+            <h1>Join a bus riding community.</h1>
+            <h1>More riding. Less waiting.</h1>
+        </div>
     </div>
     
-        <form action="login.php" method="post" >
-            <input type="text" id="txtusername" placeholder=".edu email"/><br />
-            <input type="text" id="txtpassword" placeholder="password" /><br />
-            <input type="submit" id="loginbtn" value="login"/>
-        </form>
-        
-    </div>
+    
 
 </body>
 

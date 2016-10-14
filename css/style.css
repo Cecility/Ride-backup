@@ -11,11 +11,34 @@ video{
   transition: 1s opacity;
 }
 
-form{
-    width: 100%;
-    top: 50%;
+.login-container{
+    top: 30%;
+    width: 90%;
     position: absolute;
-    text-align: center;   
+    margin-left: 3em;
+    display: flex;
+}
+
+#partition{
+    margin-right:4em;
+    margin-left:4em;
+    width: 5px;
+    background: white;
+}
+.login-container-left{
+    width: 100%;
+    text-align: center;
+}
+
+.login-container-right{
+    text-align: center;
+    width: 100%;
+    color: white;
+    font-family: "Open Sans";
+}
+
+form{
+    width: 100%;  
     color: white;
     font-family: "Open Sans";
     font-size: 1.5em;
@@ -47,11 +70,8 @@ form{
 
 .logo{
     width: 100%;
-    position: absolute;
-    top: 30%;
     color: white;
     font-size: 5em;
-    text-align: center;
     font-family: "Pacifico"
 }
 
