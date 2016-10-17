@@ -31,12 +31,22 @@ video{
 }
 
 .login-container-right{
+    margin-top: 2em;
     text-align: center;
     width: 100%;
     color: white;
     font-family: "Open Sans";
 }
 
+.login-container-right a:link{
+    color:white;
+}
+
+
+.login-container-right a:hover{
+    color: gold;
+    text-decoration: none;
+}
 form{
     width: 100%;  
     color: white;
@@ -73,5 +83,23 @@ form{
     color: white;
     font-size: 5em;
     font-family: "Pacifico"
+}
+
+.reg-container{
+    width:50%;
+    left: 30%;
+    align-items: center;
+    text-align: center;
+    top: 30%;
+    position: fixed;
+    background: black;
+    opacity: .3;
+}
+
+.reg-container input{
+    margin:1em;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid white;
 }
 
