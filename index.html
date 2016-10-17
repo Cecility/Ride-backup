@@ -57,8 +57,7 @@
                 <form id="reg-form">
                     <input type="text" id="firstName" placeholder="First name"/>
                     <input type="text" id="lastName" placeholder="Last name"/><br />
-                    <input type="email" pattern="@ucsd.edu" 
-                           oninvalid="setCustomValidity('UCSD email only')" id="email" placeholder=".edu Email"/><br />
+                    <input type="email" id="email" placeholder=".edu Email"/><br />
                     <input type="password" id="password" placeholder="password"/><br />
                     <input type="submit" id="reg-submit" value="Register" href="#"/>
                 </form>
@@ -87,24 +86,33 @@
             email = document.getElementById('email').value,
             pass = document.getElementById('password').value;
             
-            if(firstName.text == null){
+            str = email.split('@');
+            var allowedDomains = [ 'ucsd.edu'];
+            
+            if ($.inArray(str[1], allowedDomains) == -1) {
+                $('#email')[0].setCustomValidity('ucsd email only');
+            }
+            
+           if(email.text == null){
+                $('#email').css("border-color", "red");
+                 $('#email')[0].setCustomValidity('empty');
+            }
+                
+            
+            if(firstName.text = null){
                 $('#firstName').css("border-color", "red");
-                console.log("instatemetn");
+                $('#firstName')[0].setCustomValidity('empty');
                 }
             
             if(lastName.text == null){
                 $('#lastName').css("border-color", "red");
-                console.log("instatemetn");
+                 $('#lastName')[0].setCustomValidity('empty');
                 }
             
-            if(email.text == null){
-                $('#email').css("border-color", "red");
-                console.log("instatemetn");
-                }
             
             if(password.text == null){
                 $('#password').css("border-color", "red");
-                console.log("instatemetn");
+                 $('#password')[0].setCustomValidity('empty');
                 }
         });
         
