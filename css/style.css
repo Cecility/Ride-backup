@@ -12,12 +12,11 @@ video{
 }
 
 .login-container{
-    top: 30%;
-    width: 90%;
-    position: absolute;
-    margin-left: 3em;
+    margin-top: 20%;
+    text-align: center;
     display: flex;
 }
+
 
 #partition{
     margin-right:4em;
@@ -86,20 +85,71 @@ form{
 }
 
 .reg-container{
-    width:50%;
-    left: 30%;
-    align-items: center;
+    height: 90%;
+    margin: 1em 2em;
+}
+.reg-content{
+    width:100%;
     text-align: center;
-    top: 30%;
-    position: fixed;
-    background: black;
-    opacity: .3;
+    margin-top: 5%;
+    background: rgba(0, 0, 0, 0.4);
+}
+.reg-content h1{
+    color: white;
+    font-family: "Pacifico";
+    text-align: left;
 }
 
-.reg-container input{
-    margin:1em;
+.reg-container #firstName{
+    width: 40%;
+    margin: .8em;
     background: transparent;
     border: none;
     border-bottom: 2px solid white;
+    color: white;
 }
 
+.reg-container #lastName{
+    width: 40%;
+    margin: .8em;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    color: white;
+}
+
+
+.reg-container #email{
+    width: 50%;
+    margin: .8em;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    color: white;
+}
+
+.reg-container #password{
+    width: 50%;
+    margin: .8em;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    color: white;
+}
+
+.reg-container #reg-submit{
+    width: 40%;
+    margin: .8em;
+    background: white;
+    border: 1px solid white;
+    color: black;
+    
+}
+
+#reg-back-btn{
+    background: transparent;
+    color: white;
+    font-size: 2em;
+    align-content: left;
+    border: none;
+}

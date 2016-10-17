@@ -12,9 +12,12 @@
     <!-- Importing Google Fonts -->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Pacifico" />
+    
+    <script   src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
 </head>
 
 <body>
+        
     <!-- Video Background -->
      <video id="bgvid" autoplay muted controls loop>
         <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
@@ -38,17 +41,75 @@
         <div id="partition"></div>
         
         <div class="login-container-right">
-            <a href="reg.html"><h1>Cheaper than Uber! <br/>
-          Join a bus riding community. <br/>
+            <a href="#" id="reg">
+                <h1>Cheaper than Uber! <br/>
+                Join a bus riding community. <br/>
                 More riding. Less waiting.</h1>
                 <h1>Register Now!</h1>
             </a>
         </div>
     </div>
     
-    
-
+    <div class="reg-container">
+        <button id="reg-back-btn"> &#60 </button>
+        <div class="reg-content">
+                <h1>Sign up now!</h1>
+                <form id="reg-form">
+                    <input type="text" id="firstName" placeholder="First name"/>
+                    <input type="text" id="lastName" placeholder="Last name"/><br />
+                    <input type="email" pattern="@ucsd.edu" 
+                           oninvalid="setCustomValidity('UCSD email only')" id="email" placeholder=".edu Email"/><br />
+                    <input type="password" id="password" placeholder="password"/><br />
+                    <input type="submit" id="reg-submit" value="Register" href="#"/>
+                </form>
+            </div>
+    </div>
 </body>
+    
+<script> 
+    $(document).ready(function(){
+        
+        $('.reg-container').hide();
+        $('#reg').on("click",function(){
+            $('.reg-container').show();
+            $('.login-container').slideToggle();
+            $('.reg-container').show();
+        });
+        
+        $('#reg-back-btn').on("click",function(){
+            $('.login-container').slideToggle();
+            $('.reg-container').hide();
+        });
+        
+        $('#reg-submit').on("click",function(){
+        var firstName = document.getElementById('firstName').value,
+            lastName = document.getElementById('lastName').value,
+            email = document.getElementById('email').value,
+            pass = document.getElementById('password').value;
+            
+            if(firstName.text == null){
+                $('#firstName').css("border-color", "red");
+                console.log("instatemetn");
+                }
+            
+            if(lastName.text == null){
+                $('#lastName').css("border-color", "red");
+                console.log("instatemetn");
+                }
+            
+            if(email.text == null){
+                $('#email').css("border-color", "red");
+                console.log("instatemetn");
+                }
+            
+            if(password.text == null){
+                $('#password').css("border-color", "red");
+                console.log("instatemetn");
+                }
+        });
+        
+    });
+    </script>
 
 <!-- Loading JQuery -->
 <script src="http://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
