@@ -19,6 +19,16 @@ video{
     display: flex;
 }
 
+#sign-in-button{
+    background: white;
+    color: black;
+    font-size: 18px;
+    margin-top: 2em;
+    padding: 15px 32px;
+    font-family: "Open Sans";
+    border: none;
+}
+
 #partition{
     margin-right:4em;
     margin-left:4em;
