@@ -53,64 +53,49 @@
         $(document).ready(function(){
             var username, useremail, picUrl, domain, userRef;
             var login_btn = document.getElementById("sign-in-button");
+            
+            
+            
             $("#sign-in-button").on("click", function(){
                 var provider = new firebase.auth.GoogleAuthProvider();
                 firebase.auth().signInWithRedirect(provider);
             });
-        try{    
-            firebase.auth().getRedirectResult().then(function(result) {
-                if (result.credential) {
-                    // This gives you a Google Access Token. You can use it to access the Google API.
-                    var token = result.credential.accessToken;
-                    // ...
+            
+            firebase.auth().onAuthStateChanged(function(currentUser){
+                if(currentUser != null){
+                // The signed-in user info.
+                username = currentUser.displayName;
+                console.log("User name is " + currentUser.displayName);
+                useremail = currentUser.email;
+
+                if(currentUser.photoUrl != undefined)   
+                    picUrl  = currentUser.photoUrl;
+                else 
+                    picUrl = "null";
+                domain = useremail.substring(0,useremail.lastIndexOf("@"));
+
+                console.log("user mail is " + useremail);
+
+                console.log("userpicUrl is " + picUrl);
+
+                console.log("domain is " + domain);
+                firebase.database().ref("users").once('value', function(snapshot){
+                  if(!snapshot.hasChild(domain)){
+                      firebase.database().ref("users/" + domain).set({
+                          name: username,
+                          email:useremail,
+                          profile_picture: picUrl
+                      });
+                      console.log("user created");
+                      window.location.href = "home/index.html"
+                  }
+                  else{
+                      console.log("user exists");
+                      window.location.href = "home/index.html"
+                  }
+              });
                 }
-            // The signed-in user info.
-            user = result.user;
-            var username = user.displayName;
-            console.log("User name is " + username);
-            useremail = user.email;
-                
-            if(user.photoUrl != undefined)   
-                picUrl  = user.photoUrl;
-            else 
-                picUrl = "null";
-            domain = useremail.substring(0,useremail.lastIndexOf("@"));
-                
-            console.log("user mail is " + useremail);
-                
-            console.log("userpicUrl is " + picUrl);
-                
-            console.log("domain is " + domain);
-            firebase.database().ref("users").once('value', function(snapshot){
-              if(!snapshot.hasChild(domain)){
-                  firebase.database().ref("users/" + domain).set({
-                      name: user.displayName,
-                      email:useremail,
-                      profile_picture: picUrl
-                  });
-                  
-                  console.log("user created");
-              }
-              else{
-                  console.log("user exists");
-              }
-          });
-                       
         });
-        }
-        
-        catch(error) {
-        
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-            console.log(error);
-          // ...
-        }
         });
     </script>
 
