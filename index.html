@@ -12,12 +12,9 @@
     <!-- Importing Google Fonts -->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Pacifico" />
-    
-    <script   src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
 </head>
 
 <body>
-        
     <!-- Video Background -->
      <video id="bgvid" autoplay muted controls loop>
         <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
@@ -30,95 +27,89 @@
             <div class="logo">
                 Ride
             </div>
+            <button id='sign-in-button'>Google Sign in</button>
         
-            <form action="login.php" method="post" >
-                <input type="email" id="txtusername" placeholder=".edu email"/><br />
-                <input type="password" id="txtpassword" placeholder="password" /><br />
-                <input type="submit" id="loginbtn" value="login"/>
-            </form>
         </div>
         
         <div id="partition"></div>
         
         <div class="login-container-right">
-            <a href="#" id="reg">
-                <h1>Cheaper than Uber! <br/>
-                Join a bus riding community. <br/>
-                More riding. Less waiting.</h1>
-                <h1>Register Now!</h1>
-            </a>
+            <h1>Cheaper than Uber!</h1>
+            <h1>Join a bus riding community.</h1>
+            <h1>More riding. Less waiting.</h1>
         </div>
     </div>
     
-    <div class="reg-container">
-        <button id="reg-back-btn"> &#60 </button>
-        <div class="reg-content">
-                <h1>Sign up now!</h1>
-                <form id="reg-form">
-                    <input type="text" id="firstName" placeholder="First name"/>
-                    <input type="text" id="lastName" placeholder="Last name"/><br />
-                    <input type="email" id="email" placeholder=".edu Email"/><br />
-                    <input type="password" id="password" placeholder="password"/><br />
-                    <input type="submit" id="reg-submit" value="Register" href="#"/>
-                </form>
-            </div>
-    </div>
-</body>
     
-<script> 
-    $(document).ready(function(){
-        
-        $('.reg-container').hide();
-        $('#reg').on("click",function(){
-            $('.reg-container').show();
-            $('.login-container').slideToggle();
-            $('.reg-container').show();
-        });
-        
-        $('#reg-back-btn').on("click",function(){
-            $('.login-container').slideToggle();
-            $('.reg-container').hide();
-        });
-        
-        $('#reg-submit').on("click",function(){
-        var firstName = document.getElementById('firstName').value,
-            lastName = document.getElementById('lastName').value,
-            email = document.getElementById('email').value,
-            pass = document.getElementById('password').value;
+
+</body>
+        <!-- JQuery -->
+    <script   src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
+        <!-- Firebase configuration -->
+    <script src="https://www.gstatic.com/firebasejs/3.5.1/firebase.js"></script>
+    
+    
+    <script>
+        $(document).ready(function(){
+            var username, useremail, picUrl, domain, userRef;
+            var login_btn = document.getElementById("sign-in-button");
             
-            str = email.split('@');
-            var allowedDomains = [ 'ucsd.edu'];
             
-            if ($.inArray(str[1], allowedDomains) == -1) {
-                $('#email')[0].setCustomValidity('ucsd email only');
-            }
             
-           if(email.text == null){
-                $('#email').css("border-color", "red");
-                 $('#email')[0].setCustomValidity('empty');
-            }
-                
+            $("#sign-in-button").on("click", function(){
+                var provider = new firebase.auth.GoogleAuthProvider();
+                firebase.auth().signInWithRedirect(provider);
+            });
             
-            if(firstName.text = null){
-                $('#firstName').css("border-color", "red");
-                $('#firstName')[0].setCustomValidity('empty');
+            firebase.auth().onAuthStateChanged(function(currentUser){
+                if(currentUser != null){
+                // The signed-in user info.
+                username = currentUser.displayName;
+                console.log("User name is " + currentUser.displayName);
+                useremail = currentUser.email;
+
+                if(currentUser.photoUrl != undefined)   
+                    picUrl  = currentUser.photoUrl;
+                else 
+                    picUrl = "null";
+                domain = useremail.substring(0,useremail.lastIndexOf("@"));
+
+                console.log("user mail is " + useremail);
+
+                console.log("userpicUrl is " + picUrl);
+
+                console.log("domain is " + domain);
+                firebase.database().ref("users").once('value', function(snapshot){
+                  if(!snapshot.hasChild(domain)){
+                      firebase.database().ref("users/" + domain).set({
+                          name: username,
+                          email:useremail,
+                          profile_picture: picUrl
+                      });
+                      console.log("user created");
+                      window.location.href = "home/index.html";
+                  }
+                  else{
+                      console.log("user exists");
+                      window.location.href = "home/index.html";
+                  }
+              });
                 }
-            
-            if(lastName.text == null){
-                $('#lastName').css("border-color", "red");
-                 $('#lastName')[0].setCustomValidity('empty');
-                }
-            
-            
-            if(password.text == null){
-                $('#password').css("border-color", "red");
-                 $('#password')[0].setCustomValidity('empty');
-                }
         });
-        
-    });
+        });
     </script>
 
-<!-- Loading JQuery -->
-<script src="http://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
+
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyCkkZLilGWMKEobaGnn5wq6eeiWsV4julU",
+        authDomain: "ride-175f3.firebaseapp.com",
+        databaseURL: "https://ride-175f3.firebaseio.com",
+        storageBucket: "ride-175f3.appspot.com",
+        messagingSenderId: "344088152572"
+      };
+      firebase.initializeApp(config);
+    </script>
+    
 </html>

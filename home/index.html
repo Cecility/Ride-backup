@@ -1,0 +1,54 @@
+<!DOCTYPPE html>
+<html>
+    <head>
+        <title>Ride Home</title>
+    </head>
+
+    <body>
+        <h1> home page</h1>
+        <button id="logout-btn">Log out</button>
+    </body>
+    
+    <!-- JQuery -->
+    <script   src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
+    
+    <!-- Firebase configuration -->
+    <script src="https://www.gstatic.com/firebasejs/3.5.1/firebase.js"></script>
+    
+    <script>
+        $(document).ready(function(){
+            var logout_btn = document.getElementById("logout-btn");
+            
+            firebase.auth().onAuthStateChanged(function(currentUser){
+                if(currentUser == null){
+                    window.location.href = "../index.html";
+                }
+                else{
+                    console.log(currentUser.displayName);
+                }
+            });
+            
+            
+            $(logout_btn).on("click",function(){
+            firebase.auth().signOut().then(function() {
+                console.log("logged out");
+            }, function(error) {
+              // An error happened.
+            });
+            });
+        });
+    </script>
+    
+    
+    <!-- Initialize Firebase -->
+    <script>
+      var config = {
+        apiKey: "AIzaSyCkkZLilGWMKEobaGnn5wq6eeiWsV4julU",
+        authDomain: "ride-175f3.firebaseapp.com",
+        databaseURL: "https://ride-175f3.firebaseio.com",
+        storageBucket: "ride-175f3.appspot.com",
+        messagingSenderId: "344088152572"
+      };
+      firebase.initializeApp(config);
+    </script>
+</html>
