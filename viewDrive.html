@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ride Page</title>
+
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+  
+
+
+</head>
+
+<body id = "viewDrive">
+
+
+<div class="menu-wrap">
+    <nav class="menu">
+        <ul class="clearfix">
+            <li><a href="viewRide.html">Ride<span class="arrow">&#9660;</span></a>
+                <ul class="sub-menu">
+                    <li><a href="viewRide.html">View Ride</a></li>
+                    <li><a href="fromHome.html">From Home</a></li>
+                    <li><a href="toHome.html">To Home</a></li>
+                </ul>
+            </li>
+            <li><a href="viewDrive.html">Drive</a></li>
+        </ul>
+    </nav>
+</div>
+
+<p> view Drive </p>
+
+
+
+  <div data-role="main" class="ui-content">
+    <a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all ui-icon-check ">+</a>
+
+    <div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">
+      <form method="post" action="demoform.asp">
+        <div>
+          <h3><font color="#000000">Schedule</font></h3>
+
+          <label for="pickup" class="ui-hidden-accessible">Pick Up:</label>
+          <input type="text" name="picku" id="pickup" placeholder="Pick Up">
+
+          <label for="dropoff" class="ui-hidden-accessible">Drop Off:</label>
+          <input type="text" name="dropo" id="dropoff" placeholder="Drop Off">
+
+          <label for="seat" class="ui-hidden-accessible">Seat:</label>
+          <input type="text" name="sea" id="seat" placeholder="Seats">
+
+          <label for="time" class="ui-hidden-accessible">Time:</label>
+          <input type="text" name="tim" id="time" placeholder="Time">
+
+
+          <dl class="dropdown"> 
+
+            <dt>
+              <a href="#">
+                <span class="hida">Dates</span>    
+                <p class="multiSel"></p>  
+              </a>
+            </dt>
+
+            <dd>
+              <div class="dateselect">
+                <ul>
+                  <li><input type="checkbox" value="Monday" />Monday</li>
+                  <li><input type="checkbox" value="Tuesday"/>Tuesday</li>
+                  <li><input type="checkbox" value="Wednesday" />Wednesday</li>
+                  <li><input type="checkbox" value="Thursday" />Thursday</li>
+                  <li><input type="checkbox" value="Friday" />Friday</li>
+                  <li><input type="checkbox" value="Saturday" />Saturday</li>
+                  <li><input type="checkbox" value="Sunday" />Sunday</li>
+                </ul>
+              </div>
+            </dd>
+
+          </dl>
+
+          <button id='scheduleRide'>submit</button> 
+          <!--<input type="submit" data-inline="true" value="submit" id='scheduleDrive'> -->
+        </div>
+      </form>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+</body>
+
+
+
+
+<script>
+  $(".dropdown dt a").on('click', function() {
+    $(".dropdown dd ul").slideToggle('fast');
+  });
+
+
+  $(".dropdown dd ul li a").on('click', function() {
+    $(".dropdown dd ul").hide();
+  });
+
+  function getSelectedValue(id) {
+    return $("#" + id).find("dt a span.value").html();
+  }
+
+  $(document).bind('click', function(e) {
+    var $clicked = $(e.target);
+    if (!$clicked.parents().hasClass("dropdown")) $(".dropdown dd ul").hide();
+  });
+
+  $('.mutliSelect input[type="checkbox"]').on('click', function() {
+
+    var title = $(this).closest('.mutliSelect').find('input[type="checkbox"]').val(),
+      title = $(this).val() + ",";
+
+    if ($(this).is(':checked')) {
+      var html = '<span title="' + title + '">' + title + '</span>';
+      $('.multiSel').append(html);
+      $(".hida").hide();
+    }
+    else {
+      $('span[title="' + title + '"]').remove();
+      var ret = $(".hida");
+      $('.dropdown dt a').append(ret);
+    }
+  });
+
+</script>
+
+
+
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("scheduleDrive");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (got it), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+
+
+</html>
