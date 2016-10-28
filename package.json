@@ -2,7 +2,7 @@
   "name": "Ride",
   "version": "1.0.0",
   "description": "Ride share app for CSE 170 / COGS 120",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
     "nodejs": "^0.0.0"
   },
