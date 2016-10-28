@@ -1,158 +1,114 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ride Page</title>
+<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+<!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
-  
-
-
-
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    
+    <!-- Importing Google Fonts -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Pacifico" />
 </head>
 
-<body id = "viewRide">
-
-
-  <div class="menu-wrap">
-    <nav class="menu">
-      <ul class="clearfix">
-        <li><a href="viewRide.html">Ride<span class="arrow">&#9660;</span></a>
-          <ul class="sub-menu">
-            <li><a href="viewRide.html">View Ride</a></li>
-            <li><a href="fromHome.html">From Home</a></li>
-            <li><a href="toHome.html">To Home</a></li>
-          </ul>
-        </li>
-        <li><a href="viewDrive.html">Drive</a></li>
-      </ul>
-    </nav>
-  </div>
-
-
-  <p> show rides </p>
-
-
-  <div data-role="main" class="ui-content">
-    <a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all ui-icon-check ">+</a>
-
-    <div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">
-      <form method="post" action="demoform.asp">
-        <div>
-          <h3><font color="#000000">Schedule</font></h3>
-
-          <label for="address" class="ui-hidden-accessible">Address:</label>
-          <input type="text" name="addr" id="address" placeholder="Address">
-
-          <label for="time" class="ui-hidden-accessible">Time:</label>
-          <input type="text" name="tim" id="time" placeholder="Time">
-
-          <dl class="dropdown"> 
-
-            <dt>
-              <a href="#">
-                <span class="hida">Dates</span>    
-                <p class="multiSel"></p>  
-              </a>
-            </dt>
-
-            <dd>
-              <div class="dateselect">
-                <ul>
-                  <li><input type="checkbox" value="Monday" />Monday</li>
-                  <li><input type="checkbox" value="Tuesday"/>Tuesday</li>
-                  <li><input type="checkbox" value="Wednesday" />Wednesday</li>
-                  <li><input type="checkbox" value="Thursday" />Thursday</li>
-                  <li><input type="checkbox" value="Friday" />Friday</li>
-                  <li><input type="checkbox" value="Saturday" />Saturday</li>
-                  <li><input type="checkbox" value="Sunday" />Sunday</li>
-                </ul>
-              </div>
-            </dd>
-
-          </dl>
-
-
-
-
-
-
-          <button id='scheduleRide'>submit</button> 
-
-                    <!-- The Modal -->
-          <div id="myModal" class="modal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-              <p>OK! Group Created!</p>
-              <span class="close">Got it!</span>
+<body>
+    <!-- Video Background -->
+     <video id="bgvid" autoplay muted controls loop>
+        <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
+        <source src="media/tron.mp4" type="video/mp4">
+         <source src="media/tron.webm" type="video/webm">
+    </video>
+    
+    <div class="login-container">
+        <div class="login-container-left">
+            <div class="logo">
+                Ride
             </div>
-          </div>
-
-
-          <!-- <input type="submit" data-inline="true" value="submit" id='scheduleRide'></a> -->
+            <button id='sign-in-button'>Google Sign in</button>
+        
         </div>
-      </form>
+        
+        <div id="partition"></div>
+        
+        <div class="login-container-right">
+            <h1>Cheaper than Uber!</h1>
+            <h1>Join a bus riding community.</h1>
+            <h1>More riding. Less waiting.</h1>
+        </div>
     </div>
-
-  </div>
-
-
-
+    
+    
 
 </body>
+        <!-- JQuery -->
+    <script   src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
+        <!-- Firebase configuration -->
+    <script src="https://www.gstatic.com/firebasejs/3.5.1/firebase.js"></script>
+    
+    
+    <script>
+        $(document).ready(function(){
+            var username, useremail, picUrl, domain, userRef;
+            var login_btn = document.getElementById("sign-in-button");
+            
+            
+            
+            $("#sign-in-button").on("click", function(){
+                var provider = new firebase.auth.GoogleAuthProvider();
+                provider.setCustomParameters({
+                    'prompt' : 'select_account'
+                });
+                firebase.auth().signInWithPopup(provider);
+            });
+            
+            firebase.auth().onAuthStateChanged(function(currentUser){
+                if(currentUser != null){
+                // The signed-in user info.
+                username = currentUser.displayName;
+                console.log("User name is " + currentUser.displayName);
+                useremail = currentUser.email;
+                if(currentUser.photoUrl != undefined)   
+                    picUrl  = currentUser.photoUrl;
+                else 
+                    picUrl = "null";
+                domain = useremail.substring(0,useremail.lastIndexOf("@"));
+                console.log("user mail is " + useremail);
+                console.log("userpicUrl is " + picUrl);
+                console.log("domain is " + domain);
+                firebase.database().ref("users").once('value', function(snapshot){
+                  if(!snapshot.hasChild(domain)){
+                      firebase.database().ref("users/" + domain).set({
+                          name: username,
+                          email:useremail,
+                          profile_picture: picUrl
+                      });
+                      console.log("user created");
+                      window.location.href = "home/index.html";
+                  }
+                  else{
+                      console.log("user exists");
+                      window.location.href = "home/index.html";
+                  }
+              });
+                }
+        });
+        });
+    </script>
 
 
-
-<script>
-  $(".dropdown dt a").on('click', function() {
-    $(".dropdown dd ul").slideToggle('fast');
-  });
-
-
-  $(".dropdown dd ul li a").on('click', function() {
-    $(".dropdown dd ul").hide();
-  });
-
-  function getSelectedValue(id) {
-    return $("#" + id).find("dt a span.value").html();
-  }
-
-  $(document).bind('click', function(e) {
-    var $clicked = $(e.target);
-    if (!$clicked.parents().hasClass("dropdown")) $(".dropdown dd ul").hide();
-  });
-
-  $('.mutliSelect input[type="checkbox"]').on('click', function() {
-
-    var title = $(this).closest('.mutliSelect').find('input[type="checkbox"]').val(),
-      title = $(this).val() + ",";
-
-    if ($(this).is(':checked')) {
-      var html = '<span title="' + title + '">' + title + '</span>';
-      $('.multiSel').append(html);
-      $(".hida").hide();
-    }
-    else {
-      $('span[title="' + title + '"]').remove();
-      var ret = $(".hida");
-      $('.dropdown dt a').append(ret);
-    }
-  });
-
-</script>
-
-
-<script type="text/javascript">
-    document.getElementById("scheduleRide").onclick = function () {
-        location.href = "fromHome.html";
-    };
-</script>
-
-
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyCkkZLilGWMKEobaGnn5wq6eeiWsV4julU",
+        authDomain: "ride-175f3.firebaseapp.com",
+        databaseURL: "https://ride-175f3.firebaseio.com",
+        storageBucket: "ride-175f3.appspot.com",
+        messagingSenderId: "344088152572"
+      };
+      firebase.initializeApp(config);
+    </script>
+    
 </html>
