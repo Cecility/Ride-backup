@@ -1,0 +1,23 @@
+{
+  "name": "Ride",
+  "version": "1.0.0",
+  "description": "Ride share app for CSE 170 / COGS 120",
+  "main": "index.html",
+  "dependencies": {
+    "nodejs": "^0.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cecility/Ride.git"
+  },
+  "author": "Hansol You Leanne Sturman Michael Zhong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cecility/Ride/issues"
+  },
+  "homepage": "https://github.com/Cecility/Ride#readme"
+}
